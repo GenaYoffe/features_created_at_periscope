@@ -1,0 +1,14 @@
+select LeadId, bank, 
+       case when upper(bank) like '%FEDERAL CREDIT UNION%' or upper(bank) like '%FED CREDIT UNION%' or upper(bank) like '%CREDIT UNION%' or upper(bank) like '%FEDERAL CU%'
+            or upper(bank) like '%FED CU%' or upper(bank) like '%FED C.U.%' or upper(bank) like '%FEDERAL C.U.%' or upper(bank) like '%FEDERAL C. U.%'
+            or upper(bank) like '%FCU%' or upper(bank) like '%F.C.U.%' or upper(bank) like '%F. C. U.%' 
+       then 'credit_union'
+       when upper(bank) like '%JPMORGAN CHASE%' or upper(bank) like '%BANK OF AMERICA%'  or upper(bank) like '%WELLS FARGO%' or upper(bank) like '%CITIBANK%' or upper(bank) like '%GOLDMAN SACHS%'
+            or upper(bank) like '%MORGAN STANLEY%'  or upper(bank) like '%SOTHERN BANCORP%'  or upper(bank) like '%TD BANK%'  or upper(bank) like '%PNC%' or upper(bank) like '%BANK OF NEW YORK MELLON%'  or upper(bank) like '%CAPITAL ONE%' or upper(bank) like '%CHARLES SCHWAB%'  or upper(bank) like '%STATE STREET%'  or upper(bank) like '%BB&T%' or upper(bank) like '%SUNTRUST%'
+            or upper(bank) like '%AMERICAN EXPRESS%' or upper(bank) like '%ALLY%'  or upper(bank) like '%BARCLAYS%'  or upper(bank) like '%M&T%' or upper(bank) like '%USAA%'
+            or upper(bank) like '%CITIZENS BANK%' or upper(bank) like '%CITIZENS NATIONAL BANK%'  or upper(bank) like '%DEUTSCHE BANK%'  or upper(bank) like '%FIFTH THIRD BANK%'
+            or upper(bank) like '%US BANK%' or upper(bank) like '%US BANCORP%' or upper(bank) like '%REGIONS%'
+            then 'major_bank'
+       else 'small_bank'
+       end as bank_category
+from CashData
